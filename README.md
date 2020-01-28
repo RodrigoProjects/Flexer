@@ -1,2 +1,4 @@
 # Flexer
-Python bot
+>It's a Python bot
+
+`(Under construction)`
