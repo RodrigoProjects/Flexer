@@ -12,7 +12,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 TOKEN = os.getenv('DISCORD_TOKEN')
-SITES = ['pcdiga']
 
 bot = commands.Bot(command_prefix='!')
 

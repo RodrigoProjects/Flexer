@@ -6,7 +6,7 @@ from PCdiga import PCdiga
 import discord
 from discord.ext import commands
 
-
+SITES = ['pcdiga']
 
 
 class Scraper(commands.Cog):
