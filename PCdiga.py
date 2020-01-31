@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 import platform, os
 import time
 import codecs
+import discord
+from datetime import datetime
 
 # -------------------------------- Exceções ---------------------------------------
 class NoData(Exception):
@@ -143,7 +145,45 @@ class PCdiga:
 
         for cmp, desc in self.data.items():
             yield f'**{cmp}** - *{desc["nome"]}*\n>  **PREÇO** -> {desc["preco"]} :money_with_wings:\n>  **DISPONIBILIDADE** -> {":green_circle:" if desc["disponibilidade"] else ":red_circle:"}\n>  **DESCONTO** -> {desc["desconto"]} {":money_mouth:" if "€" in desc["desconto"] else ":slight_frown:"} \n\n'
-    
         
+    def result2Embed(self):
+        if not self.data:
+            raise NoData
+        
+        links = list(self.compToLinks.values())[::-1]
+
+        for cmp, desc in self.data.items():
+            embed = discord.Embed(
+                title=cmp, 
+                url=links.pop(),
+                description=desc["nome"],
+                color=13382193,
+                timestamp=datetime.now()
+            )
+
+            embed.set_thumbnail(url=desc["imagem"])
+
+            embed.add_field(
+                name='**PRICE** :money_with_wings:',
+                value=desc["preco"],
+                inline=True
+            )
+
+            embed.add_field(
+                name='**DISPONIBILIDADE**',
+                value=":green_circle:" if desc["disponibilidade"] else ":red_circle:",
+                inline=True
+            )
+
+            embed.add_field(
+                name=f'**DESCONTO** {":money_mouth:" if "€" in desc["desconto"] else ":slight_frown:"}',
+                value=desc["desconto"],
+                inline=False
+            )
+
+            yield embed
+
+            
+
 
 

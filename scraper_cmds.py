@@ -20,16 +20,12 @@ class Scraper(commands.Cog):
             scraper = PCdiga('pcdiga_links.txt')
             scraper.request()
             await ctx.channel.purge()
-            for product_str in scraper.result2Discord():
-                await ctx.send(product_str)
+            for product_str in scraper.result2Embed():
+                await ctx.send(embed=product_str.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url))
             
         except Exception:
             await ctx.send('Problema no ficheiro dos links! (Talvez esteja vazio)')
 
-    @commands.command(name='clear',help='Comando que apaga todas as mensagens do bot.')
-    async def clear(self, ctx, amount : int = 1000):
-        holder = await ctx.channel.purge(limit=int(amount) + 1)
-        await ctx.send(f'Foram Apagadas **{len(holder)}** mensagens :envelope:')
 
     @commands.command(name='get_links', help='Comando que mostra os links a serem usados e nome dos mesmos em qualquer loja suportada.')
     async def get_links(self, ctx, site_name : str = None ):
