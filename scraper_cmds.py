@@ -50,11 +50,11 @@ class Scraper(commands.Cog):
     async def rm_link(self, ctx, site_name : str = None, line : int = None):
 
         if line == None and site_name == None:
-            await ctx.send('**Nome do site e número de linhas não fornecido!**')
-            return
+            return await ctx.send('**Nome do site e número de linhas não fornecido!**')
+            
         elif line == None:
-            await ctx.send('**Número da linha não fornecido!**')
-            return
+            return await ctx.send('**Número da linha não fornecido!**')
+            
 
         site_name = site_name.lower() if site_name is not None else site_name
         
